@@ -44,15 +44,15 @@ namespace Gihan.SpaceAnalizer.Views
             BtnGo_Click(sender, e);
         }
 
-        private FileSystemTreeNode Find(FileSystemTreeNode node, string path)
+        private StorageTreeNode Find(StorageTreeNode node, string path)
         {
             if (path == node.Data.FullName) return node;
             var child = node.Children.LastOrDefault(n =>
                 path.StartsWith(n.Data.FullName, StringComparison.OrdinalIgnoreCase));
             if (child is null) return null;
             if (string.Compare(child.Data.FullName, path, StringComparison.OrdinalIgnoreCase) == 0)
-                return child as FileSystemTreeNode;
-            return Find(child as FileSystemTreeNode, path);
+                return child as StorageTreeNode;
+            return Find(child as StorageTreeNode, path);
         }
 
         private void BtnGo_Click(object sender, RoutedEventArgs e)
@@ -83,11 +83,11 @@ namespace Gihan.SpaceAnalizer.Views
                 {
                     case DirectoryInfo folder:
                         FolderItem folderItem;
-                        Sp.Children.Add(folderItem = new FolderItem(item as FileSystemTreeNode));
+                        Sp.Children.Add(folderItem = new FolderItem(item as StorageTreeNode));
                         folderItem.Click += FolderItem_Click;
                         break;
                     case FileInfo file:
-                        Sp.Children.Add(new FileItem(item as FileSystemTreeNode));
+                        Sp.Children.Add(new FileItem(item as StorageTreeNode));
                         break;
                     default:
                         break;

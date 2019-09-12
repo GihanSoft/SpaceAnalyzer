@@ -24,7 +24,7 @@ namespace Gihan.SpaceAnalizer.Views.Customs
     {
         public event RoutedEventHandler Click;
 
-        public FileSystemTreeNode Node { get; }
+        public StorageTreeNode Node { get; }
 
         public DriveItem(string driveName)
         {
@@ -34,7 +34,7 @@ namespace Gihan.SpaceAnalizer.Views.Customs
             Prg.Maximum = drive.TotalSize;
             Prg.Value = drive.TotalSize - drive.AvailableFreeSpace;
             Prg.IsIndeterminate = false;
-            Node = new FileSystemTreeNode { Data = drive.RootDirectory };
+            Node = new StorageTreeNode { Data = drive.RootDirectory };
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

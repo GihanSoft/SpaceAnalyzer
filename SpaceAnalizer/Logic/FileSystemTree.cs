@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SpaceAnalizer;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Gihan.SpaceAnalizer.Logic
 {
-    public class FileSystemTreeNode : TreeNode<FileSystemInfo>
+    public class StorageTreeNode : TreeNode<FileSystemInfo>
     {
         public event EventHandler SizeSetted;
 
@@ -13,7 +15,7 @@ namespace Gihan.SpaceAnalizer.Logic
 
         private Task SetChildTask { get; set; }
 
-        public FileSystemTreeNode()
+        public StorageTreeNode()
         {
             SetChildTask = new Task(SetChildren);
         }
@@ -28,11 +30,11 @@ namespace Gihan.SpaceAnalizer.Logic
                         .Where(f => !f.Attributes.HasFlag(FileAttributes.System));
                 _children.Clear();
                 foreach (var fileSystemInfo in fileSystemInfos)
-                    AddChild(new FileSystemTreeNode { Data = fileSystemInfo });
+                    AddChild(new StorageTreeNode { Data = fileSystemInfo });
 
                 foreach (var fileSystemInfoChild in Children)
                 {
-                    var child = fileSystemInfoChild as FileSystemTreeNode;
+                    var child = fileSystemInfoChild as StorageTreeNode;
                     switch (child.Data)
                     {
                         case FileInfo file:
@@ -45,16 +47,16 @@ namespace Gihan.SpaceAnalizer.Logic
                             break;
                     }
                 }
-                Size = Children.Sum(c => (c as FileSystemTreeNode).Size);
+                Size = Children.Sum(c => (c as StorageTreeNode).Size);
                 SizeSetted?.Invoke(this, null);
             }
             catch(UnauthorizedAccessException err)
             {
-
+                (Application.Current as App).Log(err.Message);
             }
             catch (Exception err)
             {
-
+                (Application.Current as App).Log(err.Message);
             }
             SetChildTask = new Task(SetChildren);
         }
@@ -71,7 +73,7 @@ namespace Gihan.SpaceAnalizer.Logic
             }
             catch (Exception err)
             {
-
+                (Application.Current as App).Log(err.Message);
             }
         }
     }

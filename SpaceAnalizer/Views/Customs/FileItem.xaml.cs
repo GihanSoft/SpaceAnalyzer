@@ -21,24 +21,24 @@ namespace Gihan.SpaceAnalizer.Views.Customs
     /// </summary>
     public partial class FileItem : UserControl
     {
-        public FileSystemTreeNode Node { get; }
+        public StorageTreeNode Node { get; }
 
-        public FileItem(FileSystemTreeNode node)
+        public FileItem(StorageTreeNode node)
         {
             Node = node;
             InitializeComponent();
             TbPath.Text = node.Data.FullName;
             if (node.Size.HasValue)
                 FileItem_SizeSetted(node, null);
-            (Node.Parent as FileSystemTreeNode).SizeSetted += FileItem_SizeSetted;
-            (Node.Parent as FileSystemTreeNode).SizeSetted += FileItem_SizeSetted;
+            (Node.Parent as StorageTreeNode).SizeSetted += FileItem_SizeSetted;
+            (Node.Parent as StorageTreeNode).SizeSetted += FileItem_SizeSetted;
         }
 
         private void FileItem_SizeSetted(object sender, EventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                Prg.Maximum = (Node.Parent as FileSystemTreeNode).Size ?? 0;
+                Prg.Maximum = (Node.Parent as StorageTreeNode).Size ?? 0;
                 Prg.Value = Node.Size ?? 0;
                 Prg.IsIndeterminate = false;
             });

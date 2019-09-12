@@ -23,16 +23,16 @@ namespace Gihan.SpaceAnalizer.Views.Customs
     {
         public event RoutedEventHandler Click;
 
-        public FileSystemTreeNode Node { get; }
+        public StorageTreeNode Node { get; }
 
-        public FolderItem(FileSystemTreeNode node)
+        public FolderItem(StorageTreeNode node)
         {
             Node = node;
             InitializeComponent();
             TbPath.Text = node.Data.FullName;
-            if ((node.Parent as FileSystemTreeNode).Size.HasValue)
+            if ((node.Parent as StorageTreeNode).Size.HasValue)
                 FileItem_SizeSetted(node, null);
-            (Node.Parent as FileSystemTreeNode).SizeSetted += FileItem_SizeSetted;
+            (Node.Parent as StorageTreeNode).SizeSetted += FileItem_SizeSetted;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,7 +44,7 @@ namespace Gihan.SpaceAnalizer.Views.Customs
         {
             Dispatcher.Invoke(() =>
             {
-                Prg.Maximum = (Node.Parent as FileSystemTreeNode).Size ?? 0;
+                Prg.Maximum = (Node.Parent as StorageTreeNode).Size ?? 0;
                 Prg.Value = Node.Size ?? 0;
                 Prg.IsIndeterminate = false;
             });

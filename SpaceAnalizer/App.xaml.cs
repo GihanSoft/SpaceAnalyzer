@@ -13,5 +13,6 @@ namespace SpaceAnalizer
     /// </summary>
     public partial class App : Application
     {
+        public void Log(string log) { }
     }
 }
