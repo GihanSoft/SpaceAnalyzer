@@ -1,0 +1,45 @@
+﻿<mah:MetroWindow x:Class="Gihan.SpaceAnalizer.Views.Win"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gihan.SpaceAnalizer.Views"
+        mc:Ignorable="d"
+        Title="Win" Height="450" Width="800">
+    <mah:MetroWindow.Resources>
+        <Canvas x:Key="Undo" Width="24" Height="24">
+            <Path Data="M12.5,8C9.85,8 7.45,9 5.6,10.6L2,7V16H11L7.38,12.38C8.77,11.22 10.54,10.5 12.5,10.5C16.04,10.5 19.05,12.81 20.1,16L22.47,15.22C21.08,11.03 17.15,8 12.5,8Z" Fill="Black" />
+        </Canvas>
+        <Canvas x:Key="Go" Width="24" Height="24">
+            <Path Data="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" Fill="Black" />
+        </Canvas>
+    </mah:MetroWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BtnBack" HorizontalAlignment="Stretch" Margin="2.5 10"
+                Style="{DynamicResource ChromelessButtonStyle}" Click="BtnBack_Click">
+                <Viewbox Child="{StaticResource Undo}" />
+            </Button>
+            <TextBox x:Name="TxtPath" Grid.Column="1" Margin="0 10" Text="{Binding CurrentPath}" />
+            <Button x:Name="BtnGo" Margin="-25 10 2.5 10" IsDefault="True"
+                    Style="{DynamicResource ChromelessButtonStyle}"
+                    Grid.Column="2" Click="BtnGo_Click">
+                <Viewbox Child="{StaticResource Go}" />
+            </Button>
+        </Grid>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="0 10">
+            <StackPanel x:Name="Sp" />
+        </ScrollViewer>
+    </Grid>
+</mah:MetroWindow>
